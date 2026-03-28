@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Blood Sugar Tracker</h2>
+
+<form method="POST">
+    <div class="mb-3">
+        <label>Sugar Level (mg/dL)</label>
+        <input type="number" step="any" class="form-control" name="sugar" required>
+    </div>
+
+    <button class="btn btn-warning w-100">Add Sugar</button>
+</form>
+
+{% if category %}
+<div class="alert alert-info mt-3">
+    Category: <strong>{{ category }}</strong>
+</div>
+{% endif %}
+
+{% if history %}
+<table class="table mt-4">
+    <tr>
+        <th>Sugar Level</th>
+    </tr>
+    {% for entry in history %}
+    <tr>
+        <td>{{ entry.sugar_level }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

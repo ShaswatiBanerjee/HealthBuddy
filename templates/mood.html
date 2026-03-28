@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="text-center mb-4">🌈 Mood Tracker</h2>
+
+<div class="card shadow-sm p-4 mb-4">
+    <form method="POST">
+
+        <div class="mb-3 text-center">
+            <label class="form-label fw-bold">Select Your Mood</label><br>
+
+            <input type="radio" name="mood" value="Happy 😊" required> Happy 😊 &nbsp;&nbsp;
+            <input type="radio" name="mood" value="Sad 😔"> Sad 😔 &nbsp;&nbsp;
+            <input type="radio" name="mood" value="Angry 😡"> Angry 😡 &nbsp;&nbsp;
+            <input type="radio" name="mood" value="Excited 🤩"> Excited 🤩 &nbsp;&nbsp;
+            <input type="radio" name="mood" value="Neutral 😐"> Neutral 😐
+        </div>
+
+        <div class="mb-3">
+            <textarea class="form-control"
+                      name="note"
+                      placeholder="Tell us what made you feel this way..."
+                      rows="3"
+                      required></textarea>
+        </div>
+
+        <button class="btn btn-info w-100">Save Mood</button>
+
+    </form>
+</div>
+
+<!-- Mood Summary -->
+<div class="card shadow-sm p-4 mb-4">
+    <h5 class="mb-3">📊 Mood Summary</h5>
+
+    <ul class="list-group">
+        <li class="list-group-item">Happy 😊 : {{ mood_counts["Happy 😊"] }}</li>
+        <li class="list-group-item">Sad 😔 : {{ mood_counts["Sad 😔"] }}</li>
+        <li class="list-group-item">Angry 😡 : {{ mood_counts["Angry 😡"] }}</li>
+        <li class="list-group-item">Excited 🤩 : {{ mood_counts["Excited 🤩"] }}</li>
+        <li class="list-group-item">Neutral 😐 : {{ mood_counts["Neutral 😐"] }}</li>
+    </ul>
+</div>
+
+<!-- Mood Chart -->
+<div class="card shadow-sm p-4 mb-4">
+<h5 class="mb-3">📊 Mood Chart</h5>
+
+<div style="max-width:500px; margin:auto;">
+<canvas id="moodChart"></canvas>
+</div>
+
+</div>
+
+<!-- Mood Suggestion-->
+{% if suggestion %}
+<div class="card shadow-sm p-4 mb-4 border-success">
+
+    <h5 class="text-success">🧘 Wellness Suggestion</h5>
+
+    <p class="fs-5">{{ suggestion }}</p>
+
+    {% if video_link %}
+    <div class="mt-2">
+        <a href="{{ video_link }}"
+           target="_blank"
+           class="btn btn-success btn-sm">
+           Start 5 min Breathing Exercise
+        </a>
+    </div>
+    {% endif %}
+
+</div>
+{% endif %}
+
+<script>
+
+const moodData = [
+{{ mood_counts.get('Happy 😊',0) }},
+{{ mood_counts.get('Sad 😔',0) }},
+{{ mood_counts.get('Angry 😡',0) }},
+{{ mood_counts.get('Excited 🤩',0) }},
+{{ mood_counts.get('Neutral 😐',0) }}
+];
+
+</script>
+
+<!-- Mood History -->
+{% if moods %}
+<div class="card shadow-sm p-4">
+    <h5 class="mb-3">📝 Mood History</h5>
+
+    <table class="table table-striped">
+        <thead class="table-info">
+            <tr>
+                <th>Date</th>
+                <th>Mood</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mood in moods %}
+            <tr>
+                <td>{{ mood.date.strftime("%d-%m-%Y %H:%M") }}</td>
+                <td>{{ mood.mood }}</td>
+                <td>{{ mood.note }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<script src="{{ url_for('static', filename='js/mood_chart.js') }}"></script>
+
+{% endblock %}
+
+
+

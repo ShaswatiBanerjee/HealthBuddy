@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<style>
+
+.hero-section{
+    background: linear-gradient(135deg,lch(89.45% 71.99 153.69),hsl(130, 92%, 19%));
+    color:white;
+    padding:100px 20px;
+    border-radius:20px;
+    margin-top:20px;
+}
+
+.hero-title{
+    font-size:48px;
+    font-weight:700;
+}
+
+.hero-sub{
+    font-size:20px;
+    opacity:0.9;
+}
+
+.start-btn{
+    margin-top:25px;
+    padding:12px 30px;
+    font-size:18px;
+    border-radius:30px;
+}
+
+
+</style>
+
+
+<div class="container">
+
+    <!-- HERO SECTION -->
+    <div class="hero-section text-center">  
+        <h1 class="hero-title">HealthBuddy</h1> 
+        <p class="hero-sub"> Smart Health Monitoring System for Better Physical and Mental Wellness </p> 
+        <a href="/mood" class="btn btn-light start-btn"> Start Your Health Journey </a>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="text-center mb-4">Water Intake Tracker</h2>
+
+<!-- Water Entry Form -->
+<form method="POST">
+    <div class="mb-3">
+        <label class="form-label">Enter Water (in Liters)</label>
+        <input type="number" step="any" class="form-control" name="amount" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">
+        Add Water
+    </button>
+</form>
+
+<hr class="my-4">
+
+<!-- Total Section -->
+{% if total %}
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>Today's Total: {{ total }} / {{ goal }} Liters</h5>
+
+        <div class="progress mt-3" style="height: 25px;">
+            <div class="progress-bar bg-success"
+                 role="progressbar"
+                 style="width: {{ percentage }}%;">
+                {{ percentage }}%
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- History Section -->
+{% if history %}
+<h4>Today's Entries</h4>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-primary">
+        <tr>
+            <th>Amount (Liters)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in history %}
+        <tr>
+            <td>{{ entry.amount }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Blood Pressure Tracker</h2>
+
+<form method="POST">
+    <div class="mb-3">
+        <label>Systolic</label>
+        <input type="number" class="form-control" name="systolic" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Diastolic</label>
+        <input type="number" class="form-control" name="diastolic" required>
+    </div>
+
+    <button class="btn btn-danger w-100">Add BP</button>
+</form>
+
+{% if category %}
+<div class="alert alert-info mt-3">
+    Category: <strong>{{ category }}</strong>
+</div>
+{% endif %}
+
+{% if history %}
+<table class="table mt-4">
+    <tr>
+        <th>Systolic</th>
+        <th>Diastolic</th>
+    </tr>
+    {% for entry in history %}
+    <tr>
+        <td>{{ entry.systolic }}</td>
+        <td>{{ entry.diastolic }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

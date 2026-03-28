@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="mb-4">Welcome, {{ name }} 👋</h2>
+
+<div class="row g-4">
+
+    <!-- BMI Card -->
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">BMI Calculator</h5>
+                <p class="card-text">Track your Body Mass Index</p>
+                <a href="/bmi" class="btn btn-success w-100">Open</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Water Card -->
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Water Tracker</h5>
+                <p class="card-text">Monitor daily hydration</p>
+                <a href="/water" class="btn btn-primary w-100">Open</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blood Pressure Card -->
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Blood Pressure</h5>
+                <p class="card-text">Track BP readings</p>
+                <a href="/bp" class="btn btn-danger w-100">Open</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sugar Card -->
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Blood Sugar</h5>
+                <p class="card-text">Monitor glucose levels</p>
+                <a href="/sugar" class="btn btn-warning w-100">Open</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mood Card -->
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Mood Tracker</h5>
+                <p class="card-text">Track mental wellbeing</p>
+                <a href="/mood" class="btn btn-info w-100">Open</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Card -->
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100 border-danger">
+            <div class="card-body text-center">
+                <h5 class="card-title text-danger">Logout</h5>
+                <p class="card-text">Sign out of your account</p>
+                <a href="/logout" class="btn btn-outline-danger w-100">Logout</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
