@@ -96,11 +96,16 @@ HealthBuddy/
 │
 ├── templates/
 │   ├── layout.html
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
 │   ├── mood.html
 │   ├── bmi.html
 │   ├── water.html
 │   ├── sugar.html
-│   └── bp.html
+│   ├── bp.html
+│   ├── ai_result.html
 │
 ├── static/
 │   ├── css/
@@ -113,6 +118,7 @@ HealthBuddy/
 │   ├── sugar/
 │   └── bp/
 ```
+
 
 ---
 
