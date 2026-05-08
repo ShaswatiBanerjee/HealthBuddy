@@ -13,8 +13,14 @@
 </form>
 
 {% if category %}
-<div class="alert alert-info mt-3">
-    Category: <strong>{{ category }}</strong>
+<div class="alert mt-3 
+    {% if category == 'Low' %}alert-danger
+    {% elif category == 'Normal' %}alert-success
+    {% else %}alert-warning
+    {% endif %}">
+    
+    <h5>Status: <strong>{{ category }}</strong></h5>
+    <p>{{ recommendation }}</p>
 </div>
 {% endif %}
 
@@ -30,5 +36,36 @@
     {% endfor %}
 </table>
 {% endif %}
+
+<h3 class="mt-5">Sugar Progress Graph</h3>
+
+<canvas id="sugarChart"></canvas>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('sugarChart').getContext('2d');
+
+    const sugarChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ dates | tojson | safe }},
+            datasets: [{
+                label: 'Blood Sugar Level',
+                data: {{ sugar_values | tojson | safe }},
+                borderWidth: 2,
+                tension: 0.3
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 
 {% endblock %}

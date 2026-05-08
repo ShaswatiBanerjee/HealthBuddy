@@ -13,12 +13,16 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(200))
 
+    
+
 
 class BMI(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     height = db.Column(db.Float)
     weight = db.Column(db.Float)
     bmi_value = db.Column(db.Float)
+    date = db.Column(db.String(20))       
+    calories = db.Column(db.Integer)       
     user_id = db.Column(db.Integer)
 
 

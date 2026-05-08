@@ -3,11 +3,19 @@
 
 <h2 class="text-center mb-4">Water Intake Tracker</h2>
 
-<!-- Water Entry Form -->
+<h3>Set Daily Water Goal (Liters)</h3>
 <form method="POST">
+    <input type="number" step="0.1" name="goal" min="0.1" required placeholder="Enter goal (e.g., 3)">
+    <button type="submit">Set Goal</button>
+</form>
+
+<p><b>Daily Goal:</b> {{goal}} L</p>
+
+<!-- Water Entry Form -->
+<form method="POST" action="/water">
     <div class="mb-3">
         <label class="form-label">Enter Water (in Liters)</label>
-        <input type="number" step="any" class="form-control" name="amount" required>
+        <input type="number" step="0.1" class="form-control" name="amount" required>
     </div>
     <button type="submit" class="btn btn-primary w-100">
         Add Water
@@ -16,25 +24,93 @@
 
 <hr class="my-4">
 
+<div class="text-center mt-3">
+    <a href="/undo_water" class="btn btn-outline-danger">
+        ⬅️ Undo Last Entry
+    </a>
+</div>
+
 <!-- Total Section -->
-{% if total %}
+{% if total is not none %}
 <div class="card mb-4">
     <div class="card-body">
         <h5>Today's Total: {{ total }} / {{ goal }} Liters</h5>
 
-        <div class="progress mt-3" style="height: 25px;">
-            <div class="progress-bar bg-success"
-                 role="progressbar"
-                 style="width: {{ percentage }}%;">
-                {{ percentage }}%
+        <div style="width: 100%; background-color: #ddd; border-radius: 10px; overflow: hidden; margin-top: 10px;">
+            <div style="
+            width: {{ percentage }}%;
+            height: 30px;
+            background-color:
+            {% if percentage < 30 %}
+                red
+            {% elif percentage < 70 %}
+                orange
+            {% else %}
+                green
+            {% endif %};
+            text-align: center;
+            color: white;
+            line-height: 30px;
+            transition: width 0.5s;">
+            {{ percentage }}%
+        </div>
+    </div>		
+        <div class="card mt-4 text-center shadow">
+            <div class="card-body">
+                <h5 class="mb-3">🏆 Weekly Achievement</h5>
+                <h2>{{ badge }}</h2>
+                <p class="text-muted">
+                    {{ weekly_percentage }}% of your weekly goal completed
+                </p>
             </div>
         </div>
     </div>
 </div>
 {% endif %}
 
+<div style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 10px;">
+    <h4>📊 Weekly Summary</h4>
+    
+    <p><b>Total Intake:</b> {{ weekly_total }} Liters</p>
+    <p><b>Average per Day:</b> {{ weekly_avg }} Liters</p>
+    <p><b>Weekly Goal Completion:</b> {{ weekly_percentage }}%</p>
+</div>
+
+<div style="margin-top: 15px; text-align: center;">
+    <div style="
+        padding: 10px;
+        border-radius: 8px;
+        color: white;
+
+        background-color:
+        {% if percentage < 30 %}
+            red
+        {% elif percentage < 70 %}
+            orange
+        {% elif percentage < 100 %}
+            blue
+        {% else %}
+            green
+        {% endif %};
+    ">
+        {{ alert }}
+    </div>
+</div>
+
+<!-- Graph Section -->
+
+<div style="margin-top: 30px;">
+    <h4 class="text-center">📊 Daily Water Intake (Last 7 Days)</h4>
+    <canvas id="dailyChart"></canvas>
+</div>
+
+<div style="margin-top: 30px;">
+    <h4 class="text-center">📈 Weekly Average Intake (Last Month)</h4>
+    <canvas id="weeklyChart"></canvas>
+</div>
+
 <!-- History Section -->
-{% if history %}
+{% if history is not none %}
 <h4>Today's Entries</h4>
 
 <table class="table table-bordered table-striped">
@@ -54,3 +130,36 @@
 {% endif %}
 
 {% endblock %}
+
+<script>
+const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+
+new Chart(dailyCtx, {
+    type: 'bar',
+    data: {
+        labels: {{ daily_labels | tojson }},
+        datasets: [{
+            label: 'Liters per Day',
+            data: {{ daily_data | tojson }},
+            borderWidth: 1
+        }]
+    }
+});
+</script>
+
+<script>
+const weeklyCtx = document.getElementById('weeklyChart').getContext('2d');
+
+new Chart(weeklyCtx, {
+    type: 'line',
+    data: {
+        labels: {{ weekly_labels | tojson }},
+        datasets: [{
+            label: 'Avg Liters per Day',
+            data: {{ weekly_data | tojson }},
+            borderWidth: 2,
+            tension: 0.3
+        }]
+    }
+});
+</script>
