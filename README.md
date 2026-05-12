@@ -86,9 +86,13 @@ HealthBuddy/
     ├── mood/
     │   └── routes.py
     ├── bmi/
+    │   └── routes.py
     ├── water/
+    │   └── routes.py
     ├── sugar/
+    │   └── routes.py
     └── bp/
+    │   └── routes.py
 ```
 
 ## ⚙️ How to Run the Project
