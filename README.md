@@ -79,7 +79,6 @@ HealthBuddy/
 │   └── smart_result.html
 │
 ├── static/
-│   ├── css/
 │   └── js/
 │       └── mood_chart.js
 │
