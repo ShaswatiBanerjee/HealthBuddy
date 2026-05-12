@@ -1,4 +1,4 @@
-# 🩺 HealthBuddy – AI-Enhanced Health Monitoring System
+# 🩺 HealthBuddy – Smart-Enhanced Health Monitoring System
 
 HealthBuddy is a comprehensive full-stack web application designed to help users monitor and improve their physical and mental well-being through a centralized, intelligent, and user-friendly platform.
 
